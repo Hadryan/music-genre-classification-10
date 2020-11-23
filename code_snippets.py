@@ -18,6 +18,10 @@ tracks_data = tracks_data[['track_id']]
 print(len(tracks_data))
 tracks_data.to_csv('./data/tracks.csv')
 
+
+
+{'133297': '/Users/saurabh/PycharmProjects/IDS/final_project/music-genre-classification/data/2018655052_small/133/133297.mp3', '099134': '/Users/saurabh/PycharmProjects/IDS/final_project/music-genre-classification/data/2018655052_small/099/099134.mp3', '108925': '/Users/saurabh/PycharmProjects/IDS/final_project/music-genre-classification/data/2018655052_small/108/108925.mp3'}
+
 # import numpy as np
 # import librosa
 #
