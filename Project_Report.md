@@ -15,6 +15,9 @@ in their ability to automatically classify a musical genre to a song
 clip/snippet. We will also use clustering techniques to 
 analyze the similarities between different genres.
 
+We have gathered 30 second audio clips which will be used to extract audio features such as spectral and rhyhtm features. We will also be using clustering to identify overlapping of genres which more often than usual make it difficult to classify songs into their respective genres.
+
+
 ### 2. Dataset
 The dataset we used is **FMA : a dataset for music analysis**[1]. The original dataset has 106,574 tracks. 
 For our project we used a small version of this dataset which has 8,000 tracks of 30 seconds each, 
