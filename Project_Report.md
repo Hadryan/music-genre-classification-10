@@ -77,20 +77,20 @@ Note - Values for feature extraction
 
 The data set has 77 total number of variables. The distribution of the data types are as below:
 
-<img src="images/de2.PNG" style="zoom:30%" />
+<img src="images/de2.PNG" style="zoom:100%" />
 
 * There are no missing values in the data
 * Percentage Boolean False Counts for each variables is as low as 0.01
 * There are 8 classes with 1000 data, hence equally distributed. The below graph shows the pictorial representation of class distribution
 
-<img src="images/de3.png" style="zoom:30%" />
+<img src="images/de3.png" style="zoom:100%" />
 
 #### 4.2 Data splitting
 
 The variables ['genre','title','track_id'] are dropped from the dataset. Since the title, genre or the track ID do not have any effects on the classification or clustering.
 The rest of the variables are used for further analysis and the column "genre" is used as the class lables which is 8. The dataset is standardized with StandardScaler function. 
 
-<img src="images/de4.PNG" style="zoom:30%" />
+<img src="images/de4.PNG" style="zoom:100%" />
 
 ### 5. Classification Algorithms
 
@@ -144,23 +144,23 @@ Parameter variations
 1. max_samples - The number of samples to draw from X to train each base estimator. sample_size = [1000,2000,3000,4000,5000,6000] this gave an increase in accuracy as the count of the max samples increases. Except for 5000 samples which might be due to the other parameter constraints and type of data selected. 
 Below graph shows the variations of accuracy against the increase in maximun samples 
 
-<img src="images/graph1.png" style="zoom:50%" />
+<img src="images/graph1.png" style="zoom:100%" />
 
 2. max_leaf_nodes - Grow trees with max_leaf_nodes in best-first fashion. Best nodes are defined as relative reduction in impurity. max_leaf_nodes = [200,400,600,800,1000,1200] this gave an increase in accuracy as the count of the maximun leaf node increases. 
 Below graph shows the variations of accuracy against the increase in maximun leaf nodes 
 
-<img src="images/graph2.png" style="zoom:50%" />
+<img src="images/graph2.png" style="zoom:100%" />
 
 3. max_features - The number of features to consider when looking for the best split. max_features = [10,20,30,40,50,60,70] this resulted in different accuries for varied number of features. The model gives the best accuracy when the count of features to split is 20. 
 Below graph shows the variations of accuracy against the increase in the number of features.
 
-<img src="images/graph3.png" style="zoom:50%" />
+<img src="images/graph3.png" style="zoom:100%" />
 
 ##### 5.1.2 Results
 
 We picked our best 'gini' model with n_estimators = 400, to classify our test data. We achieved an accuracy of 49.12%. Following is the confusion matrix of our classification task.
 
-<img src="images/rf1.PNG" style="zoom:30%" />
+<img src="images/rf1.PNG" style="zoom:100%" />
 
 ##### 5.2.3 Top features 
 
@@ -179,7 +179,7 @@ Feature ranking:
 9. feature 37 (0.019751)
 10. feature 56 (0.019747)
 
-<img src="images/rf_feature.png" style="zoom:50%" />
+<img src="images/rf_feature.png" style="zoom:100%" />
 
 ### 6. Clustering Inferences
 
