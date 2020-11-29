@@ -10,25 +10,18 @@
 ## Topic - Music Genre Classification and Similarity Identification
 
 ### 1. Introduction
-In this project we aim to compare machine learning algorithms 
-in their ability to automatically classify a musical genre to a song
-clip/snippet. We will also use clustering techniques to 
-analyze the similarities between different genres.
+In this project we aim to compare machine learning algorithms in their ability to automatically classify a musical genre to a song clip/snippet. We will also use clustering techniques to analyze the similarities between different genres.
 
 We have gathered 30 second audio clips which will be used to extract audio features such as spectral and rhyhtm features. We will also be using clustering to identify overlapping of genres which more often than usual make it difficult to classify songs into their respective genres.
 
 
 ### 2. Dataset
-The dataset we used is **FMA : a dataset for music analysis**[1]. The original dataset has 106,574 tracks. 
-For our project we used a small version of this dataset which has 8,000 tracks of 30 seconds each, 
-these tracks categorise into 8 balanced genres. 
-In addition to these audio tracks, it also has per track metadata such as ID, title, artist, genres, tags and play counts, 
-for all 106,574 tracks.
+The dataset we used is **FMA : a dataset for music analysis**[1]. The original dataset has 106,574 tracks. For our project we used a small version of this dataset which has 8,000 tracks of 30 seconds each, these tracks categorise into 8 balanced genres. 
+In addition to these audio tracks, it also has per track metadata such as ID, title, artist, genres, tags and play counts, for all 106,574 tracks.
 
 ### 3. Feature Selection
 Machine learning typically requires each data example to be represented numerically, often as a vector of relevant information 
-or ‘feature vector. For this, we used librosa[2] -  a python package for music and audio analysis 
-to extract features from the audio clips. This data includes information about the sound frequencies, bandwidth and rhythm. 
+or ‘feature vector. For this, we used librosa[2] -  a python package for music and audio analysis to extract features from the audio clips. This data includes information about the sound frequencies, bandwidth and rhythm. 
 
 The following features were extracted from the audio clip for each song.
 
@@ -70,24 +63,52 @@ Different spectral features extracted -
 - rms - root-mean-square value for each frame, either from the audio samples.
 - tonal centroid features - tonnetz.
 
+
+
+Note - Values for feature extraction 
+
+    1.  Sampling rate(the number of samples per second of audio) - 22050 Hz. 
+    2.  Hop length (number of samples between successive frames for different features) - 512.
+    3.  Frame Length (Length of the frame over which to compute different features) - 2048.
+
 ### 4. Data Exploration
-
-#### 4.2 Feature Analysis
-
-![](images/feature_scores.png)
 
 
 ### 5. Classification Algorithms
 
 #### 5.1 Support-Vector Machine
 
+##### 5.1.1 Parameter Tuning
+
+The support-vector machine was implemented with SVC from sklearn.svm. We used cross validation to test different parameters. Parameters tested - 
+
+1. Kernel - The kernel type determines the way in which the decision boundary of a SVM is drawn. We tested several different kernel types including 'rbf', 'linear' and 'polynomial'. Our initial testing revealed that 'rbf' (radial basis function) was the most successful kernel.
+2. C - The C parameter tells the SVM optimization how much you want to avoid misclassifying each training example. For large values of C, the optimization will choose a smaller-margin hyperplane if that hyperplane does a better job of getting all the training points classified correctly. Conversely, a very small value of C will cause the optimizer to look for a larger-margin separating hyperplane, even if that hyperplane misclassifies more points. Several values of C were tested.
+3. Degree - For polynomial kernels, we tested several different values in the range [2,5].
+
+The following image shows the highest cross-validation score achieved for different kernel types - 
+
+<img src="images/svm_cv_scores.png" style="zoom:50%" />
+
+##### 5.1.2 Results - 
+
+We picked our best 'rbf' model with C=5, to classify our test data. We achieved an accuracy of 53.25%. Following is the confusion matrix of our classification task.
+
+<img src="images/svm_conf_matrix_1.png" style="zoom:50%" />
+
+##### 5.1.3 Feature Analysis - 
+
+Next, we did some feature analysis using the '**SelectKBest**' function of the sklearn.feature_selection module. We used it to filter out the features which were least relevant to our classification task, based on their score. We used 'f_classif' as our score function as we had continous values for our features, this leads to the computation of F-values of the features.
+
+![](images/feature_scores.png)
 
 
-Note - Values for feature extraction 
 
-  1.  Sampling rate(the number of samples per second of audio) - 22050 Hz. 
-  2.  Hop length (number of samples between successive frames for different features) - 512.
-  3.  Frame Length (Length of the frame over which to compute different features) - 2048.
+We experimented with differerent number of features with our best model, but were not able to improve on the existing accuracy. For instance, with 35 top features, we were able to achieve 49.5% accuracy. Following is the confusion matrix of our classification task using 35 top features. 
+
+<img src="images/svm_conf_matrix_2.png" style="zoom:50%" />
+
+
 
 ### 6. Clustering Inferences
 
@@ -95,13 +116,15 @@ One of the our interesting research was to identify overlapping of genres. We ap
 
 To begin with, we identified the important features from their F-score. Two of the most informative features were chroma_cens and chroma_cqt. For our study we calculated the averaged values of various features such as - chroma_cens_avg, chroma_cqt_avg, chroma_stft_avg, and spectral_contrast_avg. We then checked the correleation between different features. From this study we analysed which mfcc features could be dropped to satisfy model assumptions of no collinearity between the features. After this pre processing, we fed the data to our K-means model and analysed which features stood out, overlapped and/or dissappeared.
 
-1. Feature Selection:
+#### 6.1 Feature Selection:
 
 Our above tables on F-score helps identify the important features to be considered. Apart from this, we also need to identify the relation between the features. To do so we check the correlation between all features. While, most were non-related a few stood out with a pearson correlation coefficient greater than 0.3. which we dropped. These included - ['mfcc7', 'mfcc5', 'mfcc19', 'mfcc3', 'mfcc4']. The correlation table is given as below:
 
 ![](images/pearson_correlation.png)
 
-2. Studying the cluster features:
+
+
+#### 6.2 Studying the cluster features:
 
 We analysed how many clusters were actually required for the data itself. We checked the SSE value for various number of clusters ( the data ideally should move towards 8 clusters as we have 8 balanced genres ). We plot the SSE value against the number of clusters and get the following plot:
 
@@ -111,13 +134,13 @@ The plot shows that having 8 clusters definitey minimises our error. Which is ex
 
 ![](images/scvsk.png)
 
-3. Cluster Confusion Matrix:
+#### 6.3 Cluster Confusion Matrix:
 
 Our most interesting study was to see how some genres may be completely overshadowed by their counterparts. We observed this when plotting the confusion matrix of our clustering model. As one can see, the value for Electronic, Experimental and International was zero. This would mean that all songs classified into these genres can easily be represented in other genres too, maybe even more correctly. This would constitute to our theory of overlapping genres which is what makes music genre classification a very difficult task generally.
 
 ![](images/kconfmatrix.png)
 
-4. Conclusion:
+#### 6.4 Conclusion:
 
 It is very interesting to note how clustering can help identify special cases even when not used for the purpose of classification specifically. Our k-means model if used for identifying which cluster test data may fall into is definitely not a good model. It gives an accuracy of approximately 7%, which although better than random case probability, is much lower than our above classification models. However, our k-means model helps identify various other parts of the genre classification. Using clustering, we were able to identify which genres may overlap and overshadow the others. It would also help to note that there are more features which may help in improving the clustering of these overlapped genres. Features such as danceability, pitch, etc can also help but were not used here due to unavailability for the studied tracks.
 
