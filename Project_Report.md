@@ -110,7 +110,7 @@ The following image shows the highest cross-validation score achieved for differ
 
 ##### 5.1.2 Results - 
 
-We picked our best 'rbf' model with C=5, to classify our test data. We achieved an accuracy of 53.25%. Following is the confusion matrix of our classification task.
+We picked our best 'rbf' kernel model with C=5, to classify our test data. We achieved an accuracy of 53.25%. Following is the confusion matrix of our classification task.
 
 <img src="images/svm_conf_matrix_1.png" style="zoom:50%" />
 
