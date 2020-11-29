@@ -74,6 +74,8 @@ Note - Values for feature extraction
 ### 4. Data Exploration
 
 
+
+
 ### 5. Classification Algorithms
 
 #### 5.1 Support-Vector Machine
@@ -109,6 +111,59 @@ We experimented with differerent number of features with our best model, but wer
 <img src="images/svm_conf_matrix_2.png" style="zoom:50%" />
 
 
+#### 5.2 Random Forest
+
+Random forest is a form of ensemble learning, meaning that it combines models with the aim of producing a model that is better than any of the individual models by itself. Also is a meta estimator that fits a number of decision tree classifiers on various sub-samples of the dataset and uses averaging to improve the predictive accuracy and control over-fitting.
+
+##### 5.2.1 Parameter Tuning
+
+The RandomForestClassifier from sklearn.ensemble was used for the random forest. We used cross validation to test different parameters.
+
+1. criterion : The function to measure the quality of a split. Supported criteria are “gini” for the Gini impurity and “entropy” for the information gain. The test gave better performance with "gini"
+
+2. n_estimators: This decides the number of trees in the forest. Even though the accuracy increases with increase in the tree count, 400 count gave the best results with random state = 1 
+
+Parameter variations
+
+1. max_samples - The number of samples to draw from X to train each base estimator. sample_size = [1000,2000,3000,4000,5000,6000] this gave an increase in accuracy as the count of the max samples increases. Except for 5000 samples which might be due to the other parameter constraints and type of data selected. 
+Below graph shows the variations of accuracy against the increase in maximun samples 
+
+<img src="images/graph1.png" style="zoom:50%" />
+
+2. max_leaf_nodes - Grow trees with max_leaf_nodes in best-first fashion. Best nodes are defined as relative reduction in impurity. max_leaf_nodes = [200,400,600,800,1000,1200] this gave an increase in accuracy as the count of the maximun leaf node increases. 
+Below graph shows the variations of accuracy against the increase in maximun leaf nodes 
+
+<img src="images/graph2.png" style="zoom:50%" />
+
+3. max_features - The number of features to consider when looking for the best split. max_features = [10,20,30,40,50,60,70] this resulted in different accuries for varied number of features. The model gives the best accuracy when the count of features to split is 20. 
+Below graph shows the variations of accuracy against the increase in the number of features.
+
+<img src="images/graph3.png" style="zoom:50%" />
+
+##### 5.1.2 Results
+
+We picked our best 'gini' model with n_estimators = 400, to classify our test data. We achieved an accuracy of 49.12%. Following is the confusion matrix of our classification task.
+
+<img src="images/rf1.PNG" style="zoom:30%" />
+
+##### 5.2.3 Top features 
+
+The below values shows the top features used in the model training. 
+Feature ranking:
+
+0. feature 36 (0.025757)
+1. feature 57 (0.025126)
+2. feature 60 (0.023938)
+3. feature 61 (0.023540)
+4. feature 63 (0.023112)
+5. feature 66 (0.022981)
+6. feature 38 (0.022482)
+7. feature 58 (0.021857)
+8. feature 62 (0.020815)
+9. feature 37 (0.019751)
+10. feature 56 (0.019747)
+
+<img src="images/rf_feature.png" style="zoom:50%" />
 
 ### 6. Clustering Inferences
 
