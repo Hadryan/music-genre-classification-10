@@ -85,7 +85,15 @@ The data set has 77 total number of variables. The distribution of the data type
 
 <img src="images/de3.png" style="zoom:100%" />
 
-#### 4.2 Data splitting
+#### 4.2 Feature Analysis
+
+We compared genres/classes by their average value for different features. Following are the comparision graphs for MFCC1 and MFCC2. We can see that 'Instrumental' class has either significantly lower or higher average values than the rest for these features. This might explain why our algorithms performed better while classifying this particular class in comparison to several others.
+
+<img src="images/mfcc1_vs_genre.png" style="zoom:50%" />
+
+<img src="images/mfcc2_vs_genre.png" style="zoom:50%" />
+
+#### 4.3 Data splitting
 
 The variables ['genre','title','track_id'] are dropped from the dataset. Since the title, genre or the track ID do not have any effects on the classification or clustering.
 The rest of the variables are used for further analysis and the column "genre" is used as the class lables which is 8. The dataset is standardized with StandardScaler function. 
@@ -156,11 +164,11 @@ Below graph shows the variations of accuracy against the increase in the number 
 
 <img src="images/graph3.png" style="zoom:100%" />
 
-##### 5.1.2 Results
+##### 5.2.2 Results
 
 We picked our best 'gini' model with n_estimators = 400, to classify our test data. We achieved an accuracy of 49.12%. Following is the confusion matrix of our classification task.
 
-<img src="images/rf1.PNG" style="zoom:100%" />
+<img src="images/rf1.PNG" style="zoom:50%" />
 
 ##### 5.2.3 Top features 
 
@@ -180,6 +188,23 @@ Feature ranking:
 10. feature 56 (0.019747)
 
 <img src="images/rf_feature.png" style="zoom:100%" />
+
+#### 5.3 Evaluation
+
+Overall, SVM was our best performing model for classification. For both SVM and Random Forest, we tried feature selection by selecting top-k features, but were unable to improve on our existing accuracy. The maximum accuracy achieved was 53.25%, which is almost 4.5x of random accuracy of 12.5%. 
+
+The genre accuracy scores for our best performing model are - 
+
+- Hip-Hop - 61.7%
+- Instrumental - 51.6%
+- Rock - 61.9%
+- Folk - 59.7%
+- Electronic - 45.8%
+- International - 59.6%
+- Pop - 39.1%
+- Experimental - 44.9%
+
+
 
 ### 6. Clustering Inferences
 
@@ -214,6 +239,16 @@ Our most interesting study was to see how some genres may be completely overshad
 #### 6.4 Conclusion:
 
 It is very interesting to note how clustering can help identify special cases even when not used for the purpose of classification specifically. Our k-means model if used for identifying which cluster test data may fall into is definitely not a good model. It gives an accuracy of approximately 7%, which although better than random case probability, is much lower than our above classification models. However, our k-means model helps identify various other parts of the genre classification. Using clustering, we were able to identify which genres may overlap and overshadow the others. It would also help to note that there are more features which may help in improving the clustering of these overlapped genres. Features such as danceability, pitch, etc can also help but were not used here due to unavailability for the studied tracks.
+
+
+
+### Conclusion and Future Work
+
+Performance varied with different models but we observed some similar trends. E.g. across all classification results pop was the misclassified more than any other genre by around 15-20%. In classification, we observed how there were no true clusters for Electronic, Experimental and International genres, this may explain why the accuracy fo 'Electronic' and 'Experimental' classes was below average accuracy but 'International' class performed well there. 
+
+We also had some other features available to us which included 'danceability', 'pitch', etc from Echonest(now known as Spotify), but we were unable to use them as they were only available for roughly 1300 of the 8000 tracks in our dataset. In the future we can explore how these features affect our classification approach. Also, it will be good to use some advanced deep learning models for the classification task. 
+
+
 
 ### References
 1. https://www.loc.gov/item/2018655052
