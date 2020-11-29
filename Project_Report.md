@@ -73,8 +73,24 @@ Note - Values for feature extraction
 
 ### 4. Data Exploration
 
+#### 4.1 Introduction
 
+The data set has 77 total number of variables. The distribution of the data types are as below:
 
+<img src="images/de2.PNG" style="zoom:30%" />
+
+* There are no missing values in the data
+* Percentage Boolean False Counts for each variables is as low as 0.01
+* There are 8 classes with 1000 data, hence equally distributed. The below graph shows the pictorial representation of class distribution
+
+<img src="images/de3.png" style="zoom:30%" />
+
+#### 4.2 Data splitting
+
+The variables ['genre','title','track_id'] are dropped from the dataset. Since the title, genre or the track ID do not have any effects on the classification or clustering.
+The rest of the variables are used for further analysis and the column "genre" is used as the class lables which is 8. The dataset is standardized with StandardScaler function. 
+
+<img src="images/de4.PNG" style="zoom:30%" />
 
 ### 5. Classification Algorithms
 
