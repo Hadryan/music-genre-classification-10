@@ -37,19 +37,24 @@
 
  <b>Software</b> - Jupyter Notebook <br>
 
- <b>Libraries</b> - pandas, numpy, scipy, plotly, seaborn <br>
+ <b>Libraries</b> - pandas, numpy, scipy, plotly, seaborn, librosa. <br>
 
  <b>Installation</b> -   
     
     pip install pandas==1.0.5 
-    pip install geopandas==0.3.0
-    pip install pyshp==1.2.10
-    pip install shapely==1.6.3
+    pip install librosa==0.6.3
 
   <b>Datasets</b> -
-    
-    
+
+- final_tracks.csv - contains title, track_id and genre of tracks/audio clips. 
+
+- features.csv - contains the track_id and all the features that were extracted using python library - 'librosa'.
+
+- merged_data.csv - combined data of final_tracks.csv and features.csv using inner join on track_id.
+
+  
+
   <b>Python Notebooks</b> -
-  
-  
+
+
   <b>Run</b> - `jupyter notebook`
