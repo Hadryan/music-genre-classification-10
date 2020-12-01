@@ -37,7 +37,7 @@
 
  <b>Software</b> - Jupyter Notebook <br>
 
- <b>Libraries</b> - pandas, numpy, scipy, plotly, seaborn, librosa. <br>
+ <b>Libraries</b> - pandas, numpy, scipy, plotly, seaborn, librosa, sklearn <br>
 
  <b>Installation</b> -   
     
@@ -46,15 +46,22 @@
 
   <b>Datasets</b> -
 
-- final_tracks.csv - contains title, track_id and genre of tracks/audio clips extracted from tracks.csv in FMA metadata dataset by limiting to the 8000 tracks in the FMA small dataset. 
+    - final_tracks.csv : contains title, track_id and genre of tracks/audio clips extracted from tracks.csv in FMA metadata dataset by limiting to the 8000 tracks in the FMA small dataset. 
 
-- features.csv - contains the track_id and all the features that were extracted from audio clips in FMA small dataset using python library - 'librosa'.
+    - features.csv : contains the track_id and all the features that were extracted from audio clips in FMA small dataset using python library - 'librosa'.
 
-- merged_data.csv - combined data of final_tracks.csv and features.csv using inner join on track_id.
-
-  
+    - merged_data.csv : combined data of final_tracks.csv and features.csv using inner join on track_id.
 
   <b>Python Notebooks</b> -
 
+    - music_genre_classification.ipynb : Contains all work regarding classification and clustering.
 
-  <b>Run</b> - `jupyter notebook`
+    - data_merge.ipynb : Merging of final_tracks.csv and features.csv.
+
+    - tracks_data_preparation.ipynb : Cleaning and extracting the 8000 audio clips with their track_ids.
+
+    - feature_extraction.ipynb : Creating features.csv with the 8000 track_ids
+
+  <b>Run</b> - 
+  
+  `jupyter notebook`
